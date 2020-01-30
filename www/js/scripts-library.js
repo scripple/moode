@@ -166,9 +166,15 @@ function groupLib(fullLib) {
 		});
 
         if (SESSION.json['library_album_grouping'] == 'Artist') {
-            allAlbums.sort(function(a, b) {
-                return (collator.compare(removeArticles(a['artist']), removeArticles(b['artist'])) || collator.compare(removeArticles(a['album']), removeArticles(b['album'])));
-    		});
+			if (GLOBAL.groupAlbum){
+				allAlbums.sort(function(a, b) {
+					return collator.compare(removeArticles(a['album']), removeArticles(b['album']));
+				});
+			} else {
+				allAlbums.sort(function(a, b) {
+					return (collator.compare(removeArticles(a['artist']), removeArticles(b['artist'])) || collator.compare(removeArticles(a['album']), removeArticles(b['album'])));
+				});
+			}
             allAlbumCovers.sort(function(a, b) {
                 return (collator.compare(removeArticles(a['artist']), removeArticles(b['artist'])) || collator.compare(removeArticles(a['album']), removeArticles(b['album'])));
     		});
@@ -199,11 +205,19 @@ function groupLib(fullLib) {
 		});
 
         if (SESSION.json['library_album_grouping'] == 'Artist') {
-            allAlbums.sort(function(a, b) {
-    			var x1 = removeArticles(a['artist']).toLowerCase(), x2 = removeArticles(b['artist']).toLowerCase();
-    			var y1 = removeArticles(a['album']).toLowerCase(), y2 = removeArticles(b['album']).toLowerCase();
-    			return x1 > x2 ? 1 : (x1 < x2 ? -1 : (y1 > y2 ? 1 : (y1 < y2 ? -1 : 0)));
-    		});
+			if (GLOBAL.groupAlbum) {
+	            allAlbums.sort(function(a, b) {
+	                a = removeArticles(a['album'].toLowerCase());
+	    			b = removeArticles(b['album'].toLowerCase());
+	    			return a > b ? 1 : (a < b ? -1 : 0);
+	    		});	
+			} else {
+	            allAlbums.sort(function(a, b) {
+	    			var x1 = removeArticles(a['artist']).toLowerCase(), x2 = removeArticles(b['artist']).toLowerCase();
+	    			var y1 = removeArticles(a['album']).toLowerCase(), y2 = removeArticles(b['album']).toLowerCase();
+	    			return x1 > x2 ? 1 : (x1 < x2 ? -1 : (y1 > y2 ? 1 : (y1 < y2 ? -1 : 0)));
+	    		});				
+			}
             allAlbumCovers.sort(function(a, b) {
     			var x1 = removeArticles(a['artist']).toLowerCase(), x2 = removeArticles(b['artist']).toLowerCase();
     			var y1 = removeArticles(a['album']).toLowerCase(), y2 = removeArticles(b['album']).toLowerCase();
@@ -377,6 +391,14 @@ function clickedLibItem(event, item, currentFilter, renderFunc) {
 	}
 
 	filterLib();
+	if (GLOBAL.groupYear && GLOBAL.groupie) { // sort array by year
+		filteredAlbums.sort(function(a, b) {
+		    return parseInt(a.year) - parseInt(b.year);
+		});
+		filteredAlbumCovers.sort(function(a, b) {
+		    return parseInt(a.year) - parseInt(b.year);
+		});
+	}
 	renderFunc();
 }
 
@@ -610,6 +632,7 @@ $('#genreheader').on('click', '.lib-heading', function(e) {
 
 // Click artists header
 $('#artistheader').on('click', '.lib-heading', function(e) {
+	GLOBAL.groupie = false;
 	LIB.filters.artists.length = 0;
 	LIB.filters.albums.length = 0;
     LIB.recentlyAddedClicked = false;
@@ -623,6 +646,7 @@ $('#artistheader').on('click', '.lib-heading', function(e) {
 // Click albums or album covers header
 $('#albumheader, #albumcoverheader').on('click', '.lib-heading', function(e) {
 	//console.log($(this).parent().attr('id'));
+	GLOBAL.groupie = false;
 	if ($(this).parent().attr('id') == 'albumcoverheader') {
 		$('#albumcovers .lib-entry').removeClass('active');
 		$('#bottom-row').css('display', 'none');
@@ -639,7 +663,7 @@ $('#albumheader, #albumcoverheader').on('click', '.lib-heading', function(e) {
 		UI.libPos.fill(-2);
 		clickedLibItem(e, undefined, LIB.filters.albums, renderAlbums);
 	}
-
+	
 	storeLibPos(UI.libPos);
 	$("#searchResetLib").hide();
 	showSearchResetLib = false;
@@ -658,6 +682,7 @@ $('#genresList').on('click', '.lib-entry', function(e) {
 // Click artist
 $('#artistsList').on('click', '.lib-entry', function(e) {
 	var pos = $('#artistsList .lib-entry').index(this);
+	if (GLOBAL.groupYear) GLOBAL.groupie = true;
 	UI.libPos[0] = -1;
 	UI.libPos[2] = pos;
 	LIB.filters.albums.length = 0;
