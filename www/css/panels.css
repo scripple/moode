@@ -178,8 +178,7 @@ img.coverart {border-style:none;border-radius:.1em;box-shadow:0 .1em .2em rgba(3
 #container-browse {width:100%;padding:0;top:2.75rem;top:calc(2.75rem + env(safe-area-inset-top));overflow:hidden;position:absolute;}
 #container-radio {width:100%;padding:0;top:2.75rem;top:calc(2.75rem + env(safe-area-inset-top));overflow:hidden;position:absolute;}
 #database, #database-radio {overflow:auto;position:relative;width:100%;top:.25em;bottom:0px;height:calc(100vh - 4.9em);-webkit-overflow-scrolling:touch;}
-.input-append input::placeholder {color:var(--textvariant);}
-#pl-filter::placeholder {color:var(--textvariant);}
+#pl-filter::placeholder, #lib-album-filter::placeholder, .input-append input::placeholder {color:var(--textvariant);}
 #playlist, #database, #database-radio {padding:0;background:none;}
 .playlist, .database, .database-radio {display:block;margin:0;padding:0;list-style:none;counter-reset:item;word-break: break-word;}
 .database {padding:0 0 12rem 0;width:calc(100vw - 2.5em);margin-left:1.75rem;overflow-x:hidden;}
@@ -306,7 +305,7 @@ input.input-block-level {display:block;height:41px;line-height:41px;padding:8px 
 .modal {background-color:rgba(240,240,240,0.9);color:#333;}
 .modal-header, .modal-footer {background-color:transparent;}
 /*.modal h5 {text-transform:uppercase;font-size:1em;margin-top:0px;margin-bottom:10px;font-weight:600;position:relative;text-align:right;right:52%;}*/
-.modal .h5 {text-transform:uppercase;font-size:1em;margin-top:0px;margin-bottom:1em;font-weight:600;position:relative;text-align:right;display:inline-block;width:30%;/* Was 48% */}
+.modal .h5 {text-transform:uppercase;font-size:1em;margin-top:0px;margin-bottom:1em;font-weight:600;position:relative;text-align:right;display:inline-block;width:49%;/* Was 48% */}
 .dtclose, .dtopen {font-weight:600;font-size:1.2em;}
 .accordian:hover {cursor:pointer;}
 #appearance-modal div.accordian .control-group {display:none;margin-bottom:1em;}
@@ -458,9 +457,10 @@ input[type='range'].vslide2::-webkit-slider-thumb {background:#fff;background-im
 #context-menu-playback .dropdown-menu {min-width:200px;white-space:nowrap;}
 #menu-check-consume, #menu-check-repeat, #menu-check-single {display:none;float:right;color:var(--adapttext);line-height:2.75em;position:absolute;right:.5em;}
 /* active/inactive css element manip */
+#coverart-link {display:none;}
 #menu-header {position:absolute;top:env(safe-area-inset-top);transform:translate(-50%);left:50%;font-weight:600;font-size:1.1rem;overflow:hidden;max-width:50%;text-overflow:ellipsis;white-space:nowrap;color:var(--adapttext);cursor:pointer;}
 #playback-panel #playback-controls {display:none;}
-#playback-panel.active #playback-controls, #playback-panel.active #playbtns, #playback-panel.active #togglebtns {display:block;}
+#playback-panel.active #playback-controls, #playback-panel.active #playbtns, #playback-panel.active #togglebtns, #playback-panel.active #coverart-link {display:block;}
 #playback-panel.active .btnlist.btnlist-top.btnlist-top-pl {display:inline-flex;}
 #library-panel {display:none;}
 #library-panel.active {height:100vh;display:block;}
@@ -564,7 +564,6 @@ input[type='range']::-webkit-slider-thumb {
 
 body.cv .timeline-thm input[type='range']::-webkit-slider-thumb {
     background-image:var(--fatthumb);
-	width:20px;
 }
 
 input[type='range']::-moz-range-thumb {
@@ -615,7 +614,7 @@ input[type='range'].vslide2::-moz-range-track {height:10em;width:2px;border-radi
 #playback-panel.newui #volcontrol, #playback-panel.cv #volcontrol, #playback-panel.newui #countdown, #playback-panel.cv #countdown {height:20vw;width:20vw;}
 #playback-queue {z-index:2;}
 /* cv */
-#playback-panel.cv #pl-filter, #playback-panel.cv .btnlist-top-pl {display:none;}
+body.cv #pl-filter, body.cv  .btnlist-top-pl, body.cv #lib-coverart-img, body.cv .btnlist-top {display:none;}
 #playback-panel.cv {color:#fff;position:fixed;z-index:1;top:0;width:100%;}
 #playback-panel.cv .pll2 {color:#aaa !important;}
 #playback-panel.cv #playback-controls {display:none;}
@@ -665,11 +664,11 @@ input[type='range'].vslide2::-moz-range-track {height:10em;width:2px;border-radi
 }
 .busy-spinner {
 	display:none;
-	font-size: 10px;
+	font-size: 9px;
 	font-weight: 500;
 	position: absolute;
-	top:1.09rem;
-	right:4.25rem;
+	top:calc(1.375rem - 6px);
+	right:3.25rem;
 	text-indent: -9999em;
 	border-top: .1em solid var(--textvariant);
 	border-right: .1em solid var(--textvariant);

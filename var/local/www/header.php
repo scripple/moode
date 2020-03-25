@@ -155,12 +155,6 @@
 	<div id="menu-bottom" class="btn-group btn-list ui-footer ui-bar-f ui-footer-fixed slidedown" data-position="fixed" data-role="footer" role="banner">
 		<div id="playbar">
 			<div aria-label="Cover" id="playbar-cover"></div>
-			<div aria-label="Switch to Playback" id="playbar-switch"><div></div></div>
-			<div id="playbar-controls">
-				<button aria-label="Previous" class="btn btn-cmd prev"><i class="fas fa-backward"></i></button>
-				<button aria-label="Play / Pause" class="btn btn-cmd play"><i class="fas fa-play"></i></button>
-				<button aria-label="Next" class="btn btn-cmd next"><i class="fas fa-forward"></i></button>
-			</div>
             <div id="playbar-title">
 				<div id="playbar-currentsong"></div>
 				<div id="playbar-currentalbum"></div>
@@ -168,6 +162,12 @@
 					<div id="playbar-mcount"></div>
 					<div id="playbar-mtotal"></div>
 				</div>
+			</div>
+			<div aria-label="Switch to Playback" id="playbar-switch"><div></div></div>
+			<div id="playbar-controls">
+				<button aria-label="Previous" class="btn btn-cmd prev"><i class="fas fa-backward"></i></button>
+				<button aria-label="Play / Pause" class="btn btn-cmd play"><i class="fas fa-play"></i></button>
+				<button aria-label="Next" class="btn btn-cmd next"><i class="fas fa-forward"></i></button>
 			</div>
             <div id="playbar-timeline">
 				<div class="timeline-bg"></div>
