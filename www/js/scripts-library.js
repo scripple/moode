@@ -796,13 +796,14 @@ var renderSongs = function(albumPos) {
 
             output += albumDiv
                 + discDiv
-    			+ '<li id="lib-song-' + (i + 1) + '" class="clearfix">'
+//    			+ '<li id="lib-song-' + (i + 1) + '" class="clearfix">'
+    			+ '<li id="lib-song-' + (i + 1) + '" class="clearfix lib-actio" style="cursor:pointer;" data-toggle="context" data-target="#context-menu-lib-item">'
     			+ '<div class="lib-entry-song"><span class="songtrack' + highlight + '">' + filteredSongs[i].tracknum + '</span>'
     			+ '<span class="songname">' + filteredSongs[i].title + '</span>'
     			+ '<span class="songtime"> ' + filteredSongs[i].time_mmss + '</span>'
     			+ '<span class="songartist"> ' + filteredSongs[i].artist + composer
     			+ '<span class="songyear"> ' + songyear + '</span></div>'
-    			+ '<div class="lib-action"><a class="btn" href="#notarget" data-toggle="context" data-target="#context-menu-lib-item"><i class="fas fa-ellipsis-h"></i></a></div>'
+//    			+ '<div class="lib-action"><a class="btn" href="#notarget" data-toggle="context" data-target="#context-menu-lib-item"><i class="fas fa-ellipsis-h"></i></a></div>'
     			+ '</li>';
 
 			LIB.totalTime += parseSongTime(filteredSongs[i].time);
@@ -1283,10 +1284,11 @@ $('#songsList').on('click', '.lib-disc', function(e) {
 });
 
 // Click lib track
-$('#songsList').on('click', '.lib-action', function(e) {
-    UI.dbEntry[0] = $('#songsList .lib-action').index(this); // Store pos for use in action menu item click
+$('#songsList').on('click', '.lib-actio', function(e) {
+    UI.dbEntry[0] = $('#songsList .lib-actio').index(this); // Store pos for use in action menu item click
 	$('#songsList li, #songsList .lib-disc a').removeClass('active');
-	$(this).parent().addClass('active');
+	//$(this).parent().addClass('active');
+	$(this).addClass('active');
 	$('img.lib-coverart').removeClass('active'); // Remove highlight
 });
 
